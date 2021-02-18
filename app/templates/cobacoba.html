@@ -1,0 +1,141 @@
+{% extends "layout/base.html" %}
+{% block main %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Swarm</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="index">Home</a></li>
+                        <li class="breadcrumb-item active">Swarm</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <div class="content">
+        <div class="container-fluid">
+            <!-- /.col-md-6 -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Swarm Mode</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- {#                                                <input type="hidden" value="1" id="total_chq">#} -->
+                        <form action="{{ url_for('cobacoba') }}" method="post">
+                        <input type="hidden" value="1" id="total_chq" name="total_chq">
+<!-- {##}
+{#                            <input name="upstreamNames">#}
+{#                            <p>#}
+{#                                upstream name :#}
+{#                                <button id="addUps" type="button" onclick="addUpstream()">Add</button>#}
+{#                                <button id="remUps" type="button" onclick="removeUpstream()">remove</button>#}
+{#                                <div id="new_chq">#}
+{#                                <input type="text" name="upS_1">#}
+{#                            </div>#}
+{#                            </p>#} -->
+                             <p>
+                                Service Name :
+                                <input class="form-control" type="text" name="service" id="service" placeholder="myWeb">
+                            </p>
+<!-- {#                            <p>#}
+{#                                IP address 1:#}
+{#                                <input type="text" name="ipAddress">#}
+{#                            </p>#} -->
+
+                                <div id="new_chq">
+<!-- {#                                    <input type="text" name="ipAddress_center" id="ipCenter">#}
+{#                                <p>IP address 1 : <input onChange='update(this.value)' type="text" name="ipAddress_1">#} -->
+                                    <p>Replicas : <input class="form-control" type="number" name="replicas" placeholder="e.g. 10">
+<!-- {#                                    <button id="addUps" type="button" onclick="addUpstream()">Add</button>#}
+{#                                <button id="remUps" type="button" onclick="removeUpstream()">remove</button>#}
+{#                                    <button id="set" type="button" onclick="update()">Set</button>#} -->
+                                </p>
+
+                            </div>
+                             <p>
+                                Port :
+                                <input class="form-control" type="text" name="port" placeholder="e.g. (PublishPort):(ContainerPort) [8080:5000]">
+                            </p>
+                            <p>
+                                Image (Using Docker.hub):
+                                <input class="form-control" type="text" name="images" placeholder="e.g. user/Image:tags [fahdi/nodeapp]">
+                            </p>
+                            <p>
+                                <input type="submit" value="Submit">
+                            </p>
+
+                        </form>
+                    </div>
+                </div>
+                <!-- /.col-md-6 -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <script>
+
+function update(i){
+
+    var ip_1 =  $("[name=ipAddress_1]").val();
+    var ip_2 =  $("[name=ipAddress_2]").val();
+    var ip_3 =  $("[name=ipAddress_3]").val();
+    var ip_4 =  $("[name=ipAddress_4]").val();
+    var ip_5 =  $("[name=ipAddress_5]").val();
+    var ip_6 =  $("[name=ipAddress_6]").val();
+    var ip_7 =  $("[name=ipAddress_7]").val();
+    var ip_8 =  $("[name=ipAddress_8]").val();
+    var ip_9 =  $("[name=ipAddress_9]").val();
+    var ip_10 =  $("[name=ipAddress_10]").val();
+    var ip_11 =  $("[name=ipAddress_11]").val();
+    var ip_12 =  $("[name=ipAddress_12]").val();
+    var ip_13 =  $("[name=ipAddress_13]").val();
+    var ip_14 =  $("[name=ipAddress_14]").val();
+    var ip_15 =  $("[name=ipAddress_15]").val();
+    var ip_16 =  $("[name=ipAddress_16]").val();
+    var ip_17 =  $("[name=ipAddress_17]").val();
+    var ip_18 =  $("[name=ipAddress_18]").val();
+    var ip_19 =  $("[name=ipAddress_19]").val();
+    var ip_20 =  $("[name=ipAddress_20]").val();
+
+    var elem = document.getElementById("ipCenter");
+    elem.value += i+";";
+
+
+}
+
+
+        function addUpstream(){
+              var new_chq_no = parseInt($('#total_chq').val())+1;
+              var new_input="<p name='p_"+new_chq_no+"'> IP address " + new_chq_no + " : <input onChange='update(this.value)' type='text' name='ipAddress_"+new_chq_no+"'> </p>";
+              if(new_chq_no<21) {
+                  $('#new_chq').append(new_input);
+                  $('#total_chq').val(new_chq_no);
+              }
+            }
+            function removeUpstream(){
+              var last_chq_no = $('#total_chq').val();
+              if(last_chq_no>1){
+                $('[name=p_'+last_chq_no+']').remove();
+                $('#total_chq').val(last_chq_no-1);
+              }
+            }
+
+        $('input[id^="txtAnswer"]').each(function (input) {
+            var value = $(this).val();
+            var id = $(this).attr('id');
+            alert('id: ' + id + ' value:' + value);
+        });
+    </script>
+{% endblock %}

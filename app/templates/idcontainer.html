@@ -1,0 +1,237 @@
+{% extends "layout/base.html" %}
+{% block main %}
+    {#    <h2>The Button Element</h2>#}
+    {#    <div id="chartContainer" style="height: 300px; width: 100%;"></div>#}
+    {#    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>#}
+    {#    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>#}
+    {#    <form action="http://localhost:2375/containers/{{ output["Id"] }}/kill" method="post">#}
+    {#        <button type="submit" onclick="alert('Hello world!'); window.location.href='index'">Kill</button>#}
+    {#    </form>#}
+    {#    <br>#}
+    {#    <th>ID :</th>#}
+    {#    {{ output["Id"] }}#}
+    {#    <br>#}
+    {#    <th>Name :</th>#}
+    {#    {{ output["Name"] }}#}
+    {#    <br>#}
+    {#    <th>Status :</th>#}
+    {#    {{ output["State"]["Status"] }}#}
+    {#    <br>#}
+    {#    <th>Image Id :</th>#}
+    {#    {{ output["Image"] }}#}
+    {#    <br>#}
+    {#    <th>Gateway :</th>#}
+    {#    {{ output["NetworkSettings"]["Gateway"] }}#}
+    {#    <br>#}
+    {#    <th>ID :</th>#}
+    {#    {{ output["NetworkSettings"]["IPAddress"] }}#}
+    {#    <br>#}
+    {#    <th>IP Address :</th>#}
+    {#    {{ output["Id"] }}#}
+    {#    <br>#}
+    {#    <th>IP Address :</th>#}
+    {#    {{ output["Id"] }}#}
+
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Container Details</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/index">Container</a></li>
+                        <li class="breadcrumb-item active">{{ output["Name"][1:] }}</li>
+                    </ol>
+                </div><!-- /.col -->
+
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <div class="content">
+        <div class="container-fluid">
+            <!-- /.col-md-6 -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="btn-group mr-2">
+                            {%- if output["State"]["Status"] == "running" %}
+                                <form action="http://localhost:2375/containers/{{ output["Id"] }}/kill" method="post">
+                                    <button id="button-refresh" type="submit" class="btn btn-primary"
+                                            onclick="if(!alert('The container will be Kill'))setTimeout(() => window.location.reload(), 1000);">
+                                        Kill
+                                    </button>
+                                </form>
+                            {% else %}
+                                <button id="button-refresh" type="submit" class="btn btn-secondary " disabled>Kill
+                                </button>
+                            {% endif %}
+
+                        </div>
+                        <div class="btn-group mr-2">
+                            {%- if output["State"]["Status"] == "exited" or  output["State"]["Status"] == "created" %}
+                                <form action="http://localhost:2375/containers/{{ output["Id"] }}/start" method="post">
+                                    <button id="button-refresh" type="submit" class="btn btn-primary"
+                                            onclick="if(!alert('The container will be Start'))setTimeout(() => window.location.reload(), 1000);">
+                                        Start
+                                    </button>
+                                </form>
+                            {% else %}
+                                <button id="button-refresh" type="submit" class="btn btn-secondary " disabled>Start
+                                </button>
+                            {% endif %}
+                        </div>
+                        <div class="btn-group mr-2">
+                            {%- if output["State"]["Status"] == "running" or output["State"]["Status"] == "paused" %}
+                                <form action="http://localhost:2375/containers/{{ output["Id"] }}/stop" method="post">
+                                    <button id="button-refresh" type="submit" class="btn btn-primary"
+                                            onclick="if(!alert('The container will be Start'))setTimeout(() => window.location.reload(), 1000);">
+                                        Stop
+                                    </button>
+                                </form>
+                            {% else %}
+                                <button id="button-refresh" type="submit" class="btn btn-secondary " disabled>Stop
+                                </button>
+                            {% endif %}
+                        </div>
+                        <div class="btn-group mr-2">
+                            {%- if output["State"]["Status"] == "running" or output["State"]["Status"] == "paused" or  output["State"]["Status"] == "exited" %}
+                                <form action="http://localhost:2375/containers/{{ output["Id"] }}/restart"
+                                      method="post">
+                                    <button id="button-refresh" type="submit" class="btn btn-primary"
+                                            onclick="if(!alert('The container will be Start'))setTimeout(() => window.location.reload(), 1000);">
+                                        Restart
+                                    </button>
+                                </form>
+                            {% else %}
+                                <button id="button-refresh" type="submit" class="btn btn-secondary " disabled>Restart
+                                </button>
+                            {% endif %}
+                        </div>
+                        <div class="btn-group mr-2">
+
+                            {%- if output["State"]["Status"] == "running" %}
+                                <form action="http://localhost:2375/containers/{{ output["Id"] }}/pause" method="post">
+                                    <button id="button-refresh" type="submit" class="btn btn-primary"
+                                            onclick="if(!alert('The container will be Pause'))setTimeout(() => window.location.reload(), 1000);">
+                                        Pause
+                                    </button>
+                                </form>
+                            {% else %}
+                                <button id="button-refresh" type="submit" class="btn btn-secondary " disabled>Pause
+                                </button>
+                            {% endif %}
+                        </div>
+                        <div class="btn-group mr-2">
+
+                            {%- if output["State"]["Status"] == "paused" %}
+                                <form action="http://localhost:2375/containers/{{ output["Id"] }}/unpause"
+                                      method="post">
+                                    <button id="button-refresh" type="submit" class="btn btn-primary"
+                                            onclick="if(!alert('The container will be Unpause'))setTimeout(() => window.location.reload(), 1000);">
+                                        Unpause
+                                    </button>
+                                </form>
+                            {% else %}
+                                <button id="button-refresh" type="submit" class="btn btn-secondary" disabled>Unpause
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Host Information</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <table class="table">
+                                <tbody>
+                                <tr class="d-lg-flex">
+                                    <td class="col-2">ID</td>
+                                    <td class="col">{{ output["Id"] }} </td>
+                                </tr>
+                                <tr class="d-lg-flex">
+                                    <td class="col-2">Name</td>
+                                    <td class="col">{{ output["Name"][1:] }}</td>
+                                </tr>
+                                <tr class="d-lg-flex">
+                                    <td class="col-2">Status</td>
+                                    <td class="col">{{ output["State"]["Status"] }}</td>
+                                </tr>
+                                <tr class="d-lg-flex">
+                                    <td class="col-2">Image</td>
+                                    <td class="col">  {{ output["Image"] }}</td>
+                                </tr>
+                                <tr class="d-lg-flex">
+                                    <td class="col-2">Gateway</td>
+                                    <td class="col">{{ output["NetworkSettings"]["Gateway"] }}</td>
+                                </tr>
+                                <tr class="d-lg-flex">
+                                    <td class="col-2">IP Address</td>
+                                    <td class="col">{{ output["NetworkSettings"]["IPAddress"] }}</td>
+                                </tr>
+
+                                </tbody>
+
+
+                                {#              <div class="col-lg-4">#}
+                                {#            <div class="card">#}
+                                {#              <div class="card-header border-0">#}
+                                {#                <div class="d-flex justify-content-between">#}
+                                {#                  <h3 class="card-title">Sales</h3>#}
+                                {#                  <a href="javascript:void(0);">View Report</a>#}
+                                {#                </div>#}
+                                {#              </div>#}
+                                {#              <div class="card-body">#}
+                                {#                <div class="d-flex">#}
+                                {#                  <p class="d-flex flex-column">#}
+                                {#                    <span class="text-bold text-lg">$18,230.00</span>#}
+                                {#                    <span>Sales Over Time</span>#}
+                                {#                  </p>#}
+                                {#                  <p class="ml-auto d-flex flex-column text-right">#}
+                                {#                    <span class="text-success">#}
+                                {#                      <i class="fas fa-arrow-up"></i> 33.1%#}
+                                {#                    </span>#}
+                                {#                    <span class="text-muted">Since last month</span>#}
+                                {#                  </p>#}
+                                {#                </div>#}
+                                {#                <!-- /.d-flex -->#}
+                                {##}
+                                {#                <div class="position-relative mb-4">#}
+                                {#                  <canvas id="sales-chart" height="100	"></canvas>#}
+                                {#                </div>#}
+                                {##}
+                                {#                <div class="d-flex flex-row justify-content-end">#}
+                                {#                  <span class="mr-2">#}
+                                {#                    <i class="fas fa-square text-primary"></i> This year#}
+                                {#                  </span>#}
+                                {##}
+                                {#                  <span>#}
+                                {#                    <i class="fas fa-square text-gray"></i> Last year#}
+                                {#                  </span>#}
+                                {#                </div>#}
+                                {#              </div>#}
+                                {#            </div>#}
+                                {#            <!-- /.card -->#}
+                                {##}
+                                {#              </div>#}
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.col-md-6 -->
+                </div>
+
+                <!-- /.container-fluid -->
+            </div>
+
+            <!-- /.content -->
+        </div>
+
+        <!-- /.content-wrapper -->
+{% endblock %}

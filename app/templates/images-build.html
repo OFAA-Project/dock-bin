@@ -1,0 +1,52 @@
+{% extends "layout/base.html" %}
+{% block main %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Run</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="index">Home</a></li>
+                        <li class="breadcrumb-item active">Run</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <div class="content">
+        <div class="container-fluid">
+            <!-- /.col-md-6 -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Run</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                    <form action='' method="POST" enctype="multipart/form-data">
+                        <p><input type='file' name='file[]' multiple>
+                        </p>
+                        <p><input type='submit' value='Upload'></p>
+
+                    </form>
+                    <p><small>Note: If use external app from local, Select all file to upload.</small></p>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-md-6 -->
+        </div>
+
+        <!-- /.container-fluid -->
+    </div>
+
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}
+<!--
+</body>
+</html>
+-->

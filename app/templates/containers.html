@@ -1,0 +1,95 @@
+{% extends "layout/base.html" %}
+{% block main %}
+
+     <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Containers</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                            <li class="breadcrumb-item active">Containers</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Run Containers</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                    <p><small>Note: If use external app from local, Select all file to upload.</small></p>
+                        <button onclick="window.location.href = 'containers/run';">Create Container</button>
+                    </div>
+                </div>
+            </div>
+                <!-- /.col-md-6 -->
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Container Running</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div  class="card-body" >
+                            <table id="contohan" class="table table-bordered table-hover contohan">
+                                <thead>
+                                <tr>
+                                    <th>Containers ID</th>
+                                    <th>Container Name</th>
+                                    <th>Images</th>
+                                    <th>Status</th>
+{#                                    <th class="small">CPU%</th>#}
+{#                                    <th class="small">Mem%</th>#}
+                                </tr>
+                                </thead>
+                                {% for i in range(0, len) %}
+                                    <tbody>
+                                    <tr>
+
+                                        {#                      <!--<td>{{i}}</td>-->#}
+                                        <td onclick="window.location.href='{{ url_for('page_container', idContainers=output[i]["Id"]) }}';">{{ output[i]["Id"][:12] }}</td>
+                                        <!--comment-->
+                                        <td>{{ output[i]["Names"] }}</td>
+                                        <td>{{ output[i]["Image"] }}</td>
+                                        <td>{{ output[i]["State"] }} | {{ output[i]["Status"] }}</td>
+                                        <!--Cpu-->
+{#                                          {%- if output[i]["State"] == "running" %}#}
+{#                                            <td>{{ output_1["Processes"][0][2] }}</td>#}
+{#                                        {% else %}#}
+{#                                            <td>-</td>#}
+{#                                        {% endif %}#}
+{#                                        <!--Mem-->#}
+                                        {#<td>{{ output_1["Processes"][0][3] if output[i]["State"] == "running" }}</td>#}
+{#                                        {%- if output[i]["State"] == "running" %}#}
+{#                                            <td>{{ output_1["Processes"][0][3] }}</td>#}
+{#                                        {% else %}#}
+{#                                            <td>-</td>#}
+{#                                        {% endif %}#}
+                                    </tbody>
+                                {% endfor %}
+
+                            </table>
+
+                        </div>
+                    </div>
+                    <!-- /.col-md-6 -->
+                </div>
+            </div>
+
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+
+{% endblock %}

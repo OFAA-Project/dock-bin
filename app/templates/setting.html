@@ -1,0 +1,89 @@
+{{ toastr.include_jquery() }}
+{{ toastr.include_toastr_css() }}
+{{ toastr.message() }}
+{% extends "layout/base.html" %}
+{% block main %} 
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Setting</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="index">Home</a></li>
+                        <li class="breadcrumb-item active">Setting</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <div class="content">
+        <div class="container-fluid">
+            <!-- /.col-md-6 -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Select Host</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <form action="{{ url_for('setting') }}" method="post">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Ip Address </label>
+                                    <div class="form-group">
+                                        <select name= "ip" class="form-control">
+                                            <option>127.0.0.1:2375</option>
+                                            <option>192.168.55.2:2375</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+{#                                <button type="submit" class="btn btn-primary">Submit</button>#}
+                                <button type="submit" value="Submit">Submit</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <!-- /.col-md-6 -->
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Setting</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <form role="form">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Ip Address </label>
+                                    <input type="string" class="form-control" id="add_ipaddress"
+                                           placeholder="e.g. 192.168.100.41:2375">
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit">Submit</button>
+                            </div>
+                            <p size="xs">Note: The other host must activated dockerd for access the API. Must using Open port like :2375.</p>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.col-md-6 -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    {{ toastr.include_toastr_js() }}
+{% endblock %}

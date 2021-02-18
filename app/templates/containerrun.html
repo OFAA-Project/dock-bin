@@ -1,0 +1,267 @@
+{% extends "layout/base.html" %}
+{% block main %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Container Create</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="index">Home</a></li>
+                        <li class="breadcrumb-item active">Container Create</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">Container Create</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        {#                        <form action="{{ url_for('containers/run') }}" method="POST" novalidate>#}
+                        <form action="" method="POST" novalidate>
+                            <div class="form-group row">
+                                <label for="colFormLabelSm"
+                                       class="col-sm-1 col-form-label col-form-label-sm">Name</label>
+                                <div class="col-sm-11">
+                                    {{ form.name(class="col-md-3", placeholder="e.g. myContainer") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="colFormLabelSm"
+                                       class="col-sm-1 col-form-label col-form-label-sm">Images</label>
+                                <div class="col-sm-11">
+                                    {{ form.image(class="col-md-3", placeholder="Myimage:Tags") }}
+                                </div>
+                                <p><small>Note: Images form, could be use already images or get from docker.hub
+                                    .</small></p>
+                            </div>
+                            <div class="form-group row">
+                                <label for="colFormLabelSm"
+                                       class="col-sm-1 col-form-label col-form-label-sm">Auto Remove</label>
+                                <div class="col-sm-11">
+                                    {{ form.auto_remove }}
+                                </div>
+                            </div>
+{#                            -------------Command-------------#}
+                            <h5>Command</h5>
+                            <div class="form-group row">
+                                <label for="colFormLabelSm"
+                                       class="col-sm-1 col-form-label col-form-label-sm">Command</label>
+                                <div class="col-sm-11">
+                                    {{ form.command(class="col-md-11", placeholder="e.g. /usr/bin/nginx -t -c /mynginx.conf") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="colFormLabelSm"
+                                       class="col-sm-1 col-form-label col-form-label-sm">Entrypoint</label>
+                                <div class="col-sm-11">
+                                    {{ form.entryPoint(class="col-md-11", placeholder="e.g. /bin/sh -c") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="colFormLabelSm"
+                                       class="col-sm-1 col-form-label col-form-label-sm">Directory Working</label>
+                                <div class="col-sm-11">
+                                    {{ form.dir_working(class="col-md-11", placeholder="e.g. /myapp") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="colFormLabelSm"
+                                       class="col-sm-1 col-form-label col-form-label-sm">TTY (-t)</label>
+                                <div class="col-sm-11">
+                                    {{ form.console }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.user.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.user(class="col-md-11", placeholder="e.g. nginx") }}
+                                </div>
+                            </div>
+                            <!-- {#-------------Volumes-------------#}
+                            <h5>Volumes</h5>
+                            <div class="form-group row">
+                                {{ form.containers.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.containers(class="col-md-11", placeholder="e.g. /path/in/container") }}
+                                </div>
+                            </div> -->
+                            {#-------------Network-------------#}
+                            <h5>Network</h5>
+                            <div class="form-group row">
+                                {{ form.network.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.network(class="col-md-11", placeholder="User") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.hostname.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.hostname(class="col-md-11", placeholder="e.g. MyWeb") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.domain_name.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.domain_name(class="col-md-11", placeholder="e.g. example.com") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.mac_address.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.mac_address(class="col-md-11", placeholder="e.g. 00-00-00-00-00-00") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.ipv4.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.ipv4(class="col-md-11", placeholder="e.g. 172.100.0.1") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.ipv6.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.ipv6(class="col-md-11", placeholder="e.g. a:b:c:d::1234") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.prim_dns.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.prim_dns(class="col-md-11", placeholder="e.g. 8.8.8.8") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.sec_dns.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.sec_dns(class="col-md-11", placeholder="e.g. 8.8.4.4") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.host_external.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.host_external(class="col-md-11", placeholder="e.g. host:IP") }}
+                                </div>
+                            </div>
+                            {#-------------environment-------------#}
+                            <h5>Environment</h5>
+                            <div class="form-group row">
+                                {{ form.name_env.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.name_env(class="col-md-11", placeholder="e.g. FOO") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.val_env.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.val_env(class="col-md-11", placeholder="e.g. bar") }}
+                                </div>
+                            </div>
+                            {#-------------Labels-------------#}
+                            <h5>Labels</h5>
+                            <div class="form-group row">
+                                {{ form.name_label.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.name_label(class="col-md-11", placeholder="e.g. com.example.myweb") }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.val_label.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.val_label(class="col-md-11", placeholder="e.g. bar") }}
+                                </div>
+                            </div>
+                            <h5>Restart Policy</h5>
+                            <div class="form-group row">
+                                {{ form.restart.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.restart }}
+                                </div>
+                            </div>
+
+                            <h5>Resource</h5>
+                            <div class="form-group row">
+                                {{ form.cpu.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.cpu(max=output.NCPU ,step = "1",oninput="cpuOutput.value = cpu.value") }}
+                                    <input name="cpuOutput" id="cpuOutput" oninput="cpu.value = cpuOutput.value" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.memory.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.memory(max=memTotal,step = "128",oninput="memoryOutput.value = memory.value") }}
+                                    <input name="memoryOutput" id="memoryOutput" oninput="memory.value = memoryOutput.value" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {{ form.mem_reservation.label (for="colFormLabelSm",
+                                       class="col-sm-1 col-form-label col-form-label-sm") }}
+                                <div class="col-sm-11">
+                                    {{ form.mem_reservation(max=memTotal,step = "128", oninput="memory1Output.value = mem_reservation.value") }}
+                                    <input name="memory1Output" id="memory1Output" oninput="mem_reservation.value = memory1Output.value" >
+                                </div>
+                            </div>
+
+                            {{ form.submit }}
+                            <script>toastr.info('MY MESSAGE!');</script>
+                        </form>
+
+                    </div>
+                </div>
+                <!-- /.col-md-6 -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+
+        <!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<script>
+function notificationme(){
+toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "100",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "show",
+            "hideMethod": "hide"
+        };
+}
+</script>
+{% endblock %}
